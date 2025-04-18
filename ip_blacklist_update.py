@@ -68,8 +68,8 @@ print(f"Connecting to SQLite DB: {SQLITE_DB}")
 db = sqlite3.connect(SQLITE_DB)
 cursor = db.cursor()
 
-print("Removing existing entries...")
-cursor.execute("delete from AutoBlockIP")
+print("Removing existing entries...(excluding allowed entry)")
+cursor.execute("delete from AutoBlockIP where Deny = 1")
 
 print("Adding new entries...")
 # AutoBlockIP VALUES(IP, RecordTime, ExpireTime, Deny, IPStd(ipv6 mapped), Type, Meta)
