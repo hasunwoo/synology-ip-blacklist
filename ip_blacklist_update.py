@@ -7,9 +7,10 @@ ABUSE_KEY = "<YOUR_ABUSE_KEY>"
 SQLITE_DB = "/etc/synoautoblock.db"
 
 def download_blocklist():
-    resp = request.urlopen("https://lists.blocklist.de/lists/all.txt")
-    data = resp.read()
-    return data.decode("utf-8").split("\n")
+    url = "https://lists.blocklist.de/lists/all.txt"
+    req = request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    with request.urlopen(req) as resp:
+        return resp.read().decode('utf-8')
 
 def download_abuseipdb(key):
     headers = {
